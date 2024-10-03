@@ -1,7 +1,5 @@
 pipeline {
-    agent { 
-        label any
-    }
+    agent any
 
     environment {
         API_KEY = credentials('api_key')
@@ -20,17 +18,13 @@ pipeline {
             }
         }
         stage('Run script') {
-            agent {
-                docker {
-                    image 'python:3.9-slim'
-                }
-            }
             steps {
                 script {
-                    sh 'python3 main.py -a ${amount} -b ${base} -t ${target}'
+                    docker.image('python:3.9-slim').inside {
+                        sh 'python main.py -a ${amount} -b ${base} -t ${target}'
+                    }
                 }
             }
         }
     }
 }
-
