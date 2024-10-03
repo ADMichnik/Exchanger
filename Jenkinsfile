@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Source') {
             steps {
-                git url: 'https://github.com/ADMichnik/Exchanger.git', credentialsId: 'github-passwd', poll: false, branch: 'main'
+                git url: 'https://github.com/ADMichnik/Exchanger.git', poll: false, branch: 'main'
             }
         }
         stage('Run script') {
